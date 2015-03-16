@@ -13,7 +13,10 @@
     if(isset($_POST['submit_button']) && $_POST['submit_button']=='submit')
     {
         //print_r($_POST);
-        $animal_insert_query = "INSERT INTO animal_list SET name='$_POST[animal_name]'";
+        $animal_insert_query = 
+            "INSERT INTO animal_list 
+                SET name='$_POST[animal_name]',
+                habitat='$_POST[animal_habitat]'";
         $animal_insert_result = mysqli_query($CONN,$animal_insert_query);
         if(mysqli_affected_rows($CONN)==1)
         {
@@ -29,6 +32,7 @@
 
 <form action="mysql_form.php" method="post">
     <input name="animal_name" placeholder="Animal Name" type="text">
+    <input name="animal_habitat" placeholder="Where does it live?" type="text">
     <button type="submit" name="submit_button" value="submit">Submit</button>
 </form>
 
@@ -41,7 +45,7 @@
     {
         while($animal_row = mysqli_fetch_assoc($result))
         {
-            print($animal_row['name'].'<br>');
+            print($animal_row['name'].' in '.$animal_row['habitat'].'<br>');
         }
     }
 ?>
